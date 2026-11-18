@@ -1,11 +1,13 @@
 Signal
 [ signal:Following
   harness:[ Session FilePath Trigger Observed Event State Observable ]
-  flow:[ FlowId ] ]
+  flow:[ FlowId ]
+  nexus_exchange:[ LaneFailure ] ]
 [ Report.Hook
   Subscribe ]
 [ Reported
   Subscribed.Stream<Observations Changed>
+  ReportedLaneFailed.LaneFailure      ; recorded; the lane failed only where the record did not need it
   ReportRefused.ReportFailure ]
 [ Observations.Vector<Observed>
   Changed.[ Transition.{ FlowId Event State }
@@ -21,7 +23,8 @@ Signal
   ReportFailure.[ Unconfigured
                   Unregistered.Session
                   Unidentified.IdentityFailure
-                  Unrecorded.Diagnostic ]
+                  Unrecorded.Diagnostic
+                  LaneFailed.LaneFailure ]           ; the translator's emission lane failed
   IdentityFailure.[ NotStarted.Diagnostic
                     Refused.{ ExitStatus.Integer Diagnostic }
                     UnreadableOutput.Diagnostic

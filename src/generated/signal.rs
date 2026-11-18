@@ -76,6 +76,7 @@ pub enum ReportFailure {
     Unregistered(harness::Session),
     Unidentified(IdentityFailure),
     Unrecorded(Diagnostic),
+    LaneFailed(nexus_exchange::LaneFailure),
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -133,6 +134,7 @@ pub enum Input {
 pub enum Output {
     Reported,
     Subscribed(signal::Frame<Observations, Changed>),
+    ReportedLaneFailed(nexus_exchange::LaneFailure),
     ReportRefused(ReportFailure),
 }
 #[rustfmt::skip]
