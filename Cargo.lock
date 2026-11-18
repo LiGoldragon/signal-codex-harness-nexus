@@ -400,7 +400,7 @@ dependencies = [
 
 [[package]]
 name = "signal-codex-harness-nexus"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "datom-codec",
  "flow-ethos",

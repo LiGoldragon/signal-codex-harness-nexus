@@ -1367,7 +1367,7 @@ rec {
       };
       "signal-codex-harness-nexus" = rec {
         crateName = "signal-codex-harness-nexus";
-        version = "0.3.0";
+        version = "0.4.0";
         edition = "2024";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./.; };
         libName = "signal_codex_harness_nexus";

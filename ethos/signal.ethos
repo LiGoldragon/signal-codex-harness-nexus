@@ -8,6 +8,7 @@ Signal
 [ Reported
   Subscribed.Stream<Observations Changed>
   ReportedLaneFailed.LaneFailure      ; recorded; the lane failed only where the record did not need it
+  ReportedUnread.RolloutFailure       ; recorded; its rollout, there already, could not be read
   ReportRefused.ReportFailure ]
 [ Observations.Vector<Observed>
   Changed.[ Transition.{ FlowId Event State }
@@ -23,8 +24,38 @@ Signal
   ReportFailure.[ Unconfigured
                   Unregistered.Session
                   Unidentified.IdentityFailure
-                  Unrecorded.Diagnostic
-                  LaneFailed.LaneFailure ]           ; the translator's emission lane failed
+                  Unrecorded.MemoryFault
+                  LaneFailed.LaneFailure             ; the translator's emission lane failed
+                  FoldRefused.FoldRefusal
+                  Unreadable.RolloutFailure
+                  UnknownFlow.FlowId                 ; no session holds the flow a reading names
+                  PublisherRefused.SubscriberCapacity
+                  Poisoned.HeldLock ]                ; a lock held through a panic: the Nexus ends
+  FoldRefusal.[ Unregistered.Session
+                SessionMismatch.{ Session Session }
+                IdentityMismatch.{ FlowId FlowId }
+                WatchIdentityMismatch.{ FlowId FlowId }
+                InvalidOffset.ByteOffset
+                OffsetReversed.{ ByteOffset ByteOffset }
+                StaleReading.{ ByteOffset Option<ByteOffset> } ] ; read from; the offset the Memory holds for that rollout
+  RolloutFailure.[ Unopened.Diagnostic
+                   Unread.Diagnostic
+                   InvalidOffset.ByteOffset
+                   Truncated.{ RolloutLength ByteOffset } ]   ; shorter than the offset read to
+  RolloutLength.Integer
+  MemoryFault.[ Unopened.Diagnostic
+                EngineFailed.Diagnostic
+                DuplicateSessions.{ Session RecordCount }
+                DuplicateConfigurations.RecordCount ]
+  RecordCount.Integer
+  SubscriberCapacity.Integer
+  HeldLock.[ Serial
+             ObservationPublisher
+             ConfigurationPublisher
+             SessionsWatch
+             WatchWords
+             Endings
+             TranslatorSettings ]
   IdentityFailure.[ NotStarted.Diagnostic
                     Refused.{ ExitStatus.Integer Diagnostic }
                     UnreadableOutput.Diagnostic
