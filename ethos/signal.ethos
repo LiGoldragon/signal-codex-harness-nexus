@@ -7,7 +7,15 @@ Signal
 [ Reported
   Subscribed.Stream<Observations Changed> ]
 [ Observations.Vector<Observed>
-  Changed.{ FlowId Event State }
+  Changed.[ Transition.{ FlowId Event State }
+            Malformed.{ FlowId ByteOffset ParseFailure } ]
+  Observation.[ Event.Event
+                Malformed.{ ByteOffset ParseFailure } ]
+  ByteOffset.Integer
+  ParseFailure.[ InvalidJson.Diagnostic
+                 InvalidField.FieldPath ]
+  Diagnostic.String
+  FieldPath.String
   Hook.[ SessionStart.{ Session Option<FilePath> }
          PermissionRequest.Session
          PostToolUse.Session
