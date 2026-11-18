@@ -5,7 +5,8 @@ Signal
 [ Report.Hook
   Subscribe ]
 [ Reported
-  Subscribed.Stream<Observations Changed> ]
+  Subscribed.Stream<Observations Changed>
+  ReportRefused.ReportFailure ]
 [ Observations.Vector<Observed>
   Changed.[ Transition.{ FlowId Event State }
             Malformed.{ FlowId ByteOffset ParseFailure } ]
@@ -16,6 +17,15 @@ Signal
                  InvalidField.FieldPath ]
   Diagnostic.String
   FieldPath.String
+  ProducerOutput.String
+  ReportFailure.[ Unconfigured
+                  Unregistered.Session
+                  Unidentified.IdentityFailure
+                  Unrecorded.Diagnostic ]
+  IdentityFailure.[ NotStarted.Diagnostic
+                    Refused.{ ExitStatus.Integer Diagnostic }
+                    UnreadableOutput.Diagnostic
+                    MalformedIdentity.ProducerOutput ]
   Hook.[ SessionStart.{ Session Option<FilePath> }
          PermissionRequest.Session
          PostToolUse.Session
