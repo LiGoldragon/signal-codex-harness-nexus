@@ -1,11 +1,13 @@
 Signal
-[ harness:[ Session FilePath Trigger Observed Event State Observable ]
+[ signal:Following
+  harness:[ Session FilePath Trigger Observed Event State Observable ]
   flow:[ FlowId ] ]
 [ Report.Hook
   Subscribe ]
 [ Reported
-  Subscribed.Stream<Vector<Observed> Changed> ]
-[ Changed.{ FlowId Event State }
+  Subscribed.Stream<Observations Changed> ]
+[ Observations.Vector<Observed>
+  Changed.{ FlowId Event State }
   Hook.[ SessionStart.{ Session Option<FilePath> }
          PermissionRequest.Session
          PostToolUse.Session
